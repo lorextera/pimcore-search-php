@@ -1,0 +1,25 @@
+{
+    "name": "pfaffenbauer/search-php",
+    "type": "pimcore-plugin",
+    "license": "Simple BSD",
+    "description": "Adds Search Crawler",
+    "keywords": ["pimcore","searchphp"],
+    "homepage": "https://github.com/dpfaffenbauer/pimcore-search-php",
+    "authors": [
+        {
+            "name": "pimcore Team",
+            "email": "info@pimcore.com",
+            "homepage": "http://www.pimcore.org/",
+            "role": "Developer"
+        },
+        {
+            "name": "Dominik Pfaffenbauer",
+            "email": "dominik@pfaffenbauer.at",
+            "homepage": "http://www.pfaffenbauer.at/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+      "pimcore/installer-plugin": ">=1"
+    }
+}  
