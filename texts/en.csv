@@ -73,3 +73,5 @@
 "searchphp_frontend_fuzzySearch_description","When checked, a fuzzy search for similar search terms is performed. If no results could be found for the search term entered by the user, similar search terms are presented as suggestions"
 "searchphp_frontend_fuzzySearch","Fuzzy Search"
 "searchphp_search_suggestions","Search Suggestions"
+"searchphp_frontend_crawler_startHour_description","The crawler will start within the first maintenance after [Start Hour] (default start hour: 1 am)."
+"searchphp_frontend_crawler_startHour","Start Hour"

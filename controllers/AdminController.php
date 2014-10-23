@@ -155,6 +155,18 @@ class SearchPhp_AdminController extends Pimcore_Controller_Action_Admin {
             $this->config["search"]["frontend"]["crawler"]["maxThreads"]=$values["search.frontend.crawler.maxThreads"];
         }
 
+
+
+        if (is_numeric($values["search.frontend.crawler.startHour"]) && $values["search.frontend.crawler.startHour"] >= 0 && $values["search.frontend.crawler.startHour"] <= 23) {
+            $this->config["search"]["frontend"]["crawler"]["startHour"]=$values["search.frontend.crawler.startHour"];
+        }
+        else
+        {
+            $this->config["search"]["frontend"]["crawler"]["startHour"]=1;
+        }
+
+
+
         if (is_numeric($values["search.frontend.crawler.maxLinkDepth"])) {
             $this->config["search"]["frontend"]["crawler"]["maxLinkDepth"]=$values["search.frontend.crawler.maxLinkDepth"];
         } else {

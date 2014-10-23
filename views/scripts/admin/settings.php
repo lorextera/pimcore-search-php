@@ -466,13 +466,27 @@ Ext.onReady(function() {
                             }
                         }
                     },
-                     {
+                    {
+                        xtype:'displayfield',
+                        value:'<?php echo  $this->translate->_('searchphp_frontend_crawler_startHour_description') ?>',
+                        cls: 'description'
+                    },
+                    {
+                        xtype:'field',
+                        fieldLabel: '<?php echo $this->translate->_("searchphp_frontend_crawler_startHour")?>',
+                        name: 'search.frontend.crawler.startHour',
+                        collapsible: false,
+                        autoHeight:true,
+                        value:'<?php echo $this->config['search']['frontend']['crawler']['startHour'] ?>'
+
+                    },
+                    {
                         xtype:'displayfield',
                         value:'*) '+'<?php echo  $this->translate->_('searchphp_frontend_mandatory_fields') ?>',
                         cls: 'mandatory_hint'
                     }
                 ]}
-          
+
         ]
     });
 

@@ -592,7 +592,17 @@ class SearchPhp_Plugin extends Pimcore_API_Plugin_Abstract implements Pimcore_AP
             $aDayAgo = time() - (24 * 60 * 60);
             $forceStart = $configArray['search']['frontend']['crawler']['forceStart'];
 
-            if ($configArray['search']['frontend']['enabled'] and ((!$running and $lastStarted <= $aDayAgo and $currentHour > 1 and $currentHour < 3) or $forceStart)) {
+            if(is_numeric($configArray['search']['frontend']['crawler']['startHour']) && $configArray['search']['frontend']['crawler']['startHour'] >= 0 && $configArray['search']['frontend']['crawler']['startHour'] <= 23)
+            {
+                $startHour = $configArray['search']['frontend']['crawler']['startHour'];
+            }
+            else
+            {
+                $startHour = 1;
+            }
+
+
+            if ($configArray['search']['frontend']['enabled'] and ((!$running and $lastStarted <= $aDayAgo and $currentHour > $startHour) or $forceStart)) {
                 logger::debug("starting frontend recrawl...");
                 $this->frontendCrawl($configArray);
                 SearchPhp_Tool::generateSitemap();
