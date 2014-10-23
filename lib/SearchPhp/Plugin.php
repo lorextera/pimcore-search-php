@@ -456,7 +456,7 @@ class SearchPhp_Plugin extends Pimcore_API_Plugin_Abstract implements Pimcore_AP
             if ($indexDir) {
 
                 //TODO nix specific
-                exec("rm -Rf " . str_replace("/index/", "/tmpindex", $indexDir));
+                $this->rrmdir(str_replace("/index/", "/tmpindex", $indexDir));
                 logger::debug("rm -Rf " . str_replace("/index/", "/tmpindex", $indexDir));
                 try {
                     $urls = explode(",", $configArray['search']['frontend']['urls']);
@@ -492,10 +492,10 @@ class SearchPhp_Plugin extends Pimcore_API_Plugin_Abstract implements Pimcore_AP
                     $db->query("RENAME TABLE `plugin_searchphp_contents_temp` TO `plugin_searchphp_contents`;");
 
                     //TODO nix specific
-                    exec("rm -Rf " . $indexDir);
+                    $this->rrmdir($indexDir);
                     logger::debug("rm -Rf " . $indexDir);
                     $tmpIndex = str_replace("/index", "/tmpindex", $indexDir);
-                    exec("cp -R " . substr($tmpIndex, 0, -1) . " " . substr($indexDir, 0, -1));
+                    $this->rcopy(substr($tmpIndex, 0, -1), substr($indexDir, 0, -1));
                     logger::debug("cp -R " . substr($tmpIndex, 0, -1) . " " . substr($indexDir, 0, -1));
                     logger::debug("SearchPhp_Plugin: replaced old index");
                     logger::info("SearchPhp_Plugin: Finished crawl");
@@ -654,6 +654,27 @@ class SearchPhp_Plugin extends Pimcore_API_Plugin_Abstract implements Pimcore_AP
 
             return $terms;
         }
+    }
+
+    protected function rrmdir($dir) {
+        if (is_dir($dir)) {
+            $files = scandir($dir);
+            foreach ($files as $file) if ($file != "." && $file != "..") $this->rrmdir("$dir/$file");
+            rmdir($dir);
+        }
+        else if (file_exists($dir)) unlink($dir);
+    }
+
+    // copies files and non-empty directories
+    protected function rcopy($src, $dst) {
+      //if (file_exists($dst)) $this->rrmdir($dst);
+      if (is_dir($src)) {
+        mkdir($dst);
+        $files = scandir($src);
+        foreach ($files as $file)
+            if ($file != "." && $file != "..") $this->rcopy("$src/$file", "$dst/$file");
+      }
+      else if (file_exists($src)) copy($src, $dst);
     }
 
 }
